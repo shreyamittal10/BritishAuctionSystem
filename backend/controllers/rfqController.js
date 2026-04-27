@@ -13,7 +13,6 @@ export const createRFQ = async (req, res) => {
       triggerType,
     } = req.body;
 
-    // ✅ VALIDATION
     if (new Date(forcedCloseTime) <= new Date(bidCloseTime)) {
       return res.status(400).json({
         error: "Forced close must be greater than bid close time",
@@ -78,7 +77,6 @@ export const getRFQDetails = async (req, res) => {
   try {
     const { rfqId } = req.params;
 
-    // 🔥 1. GET RFQ
     const rfqRes = await pool.query(
       "SELECT * FROM rfq WHERE id = $1",
       [rfqId]
@@ -90,7 +88,6 @@ export const getRFQDetails = async (req, res) => {
 
     const rfq = rfqRes.rows[0];
 
-    // 🔥 2. GET BIDS + SUPPLIER NAME (SORTED)
     const bidsRes = await pool.query(
         `SELECT DISTINCT ON (b.supplier_id)
            s.name AS supplier_name,
@@ -108,22 +105,19 @@ export const getRFQDetails = async (req, res) => {
         [rfqId]
       );
       
-      // 🔥 Sort for ranking
       const sortedBids = bidsRes.rows.sort((a, b) => {
         if (Number(a.total_price) !== Number(b.total_price)) {
           return Number(a.total_price) - Number(b.total_price);
         }
-        // 🔥 Tie-breaker → earlier bid wins
+
         return new Date(a.created_at) - new Date(b.created_at);
       });
       
-      // 🔥 Add ranks
       const bidsWithRank = sortedBids.map((bid, index) => ({
         ...bid,
         rank: `L${index + 1}`,
       }));
 
-    // 🔥 4. GET LOGS
     const logsRes = await pool.query(
       `SELECT event_type, message, created_at
        FROM logs

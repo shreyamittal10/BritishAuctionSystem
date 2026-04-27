@@ -59,12 +59,10 @@ export default function RFQDetails() {
   
       alert("Bid placed successfully");
   
-      // 🔥 REFRESH DATA
       const updated = await fetch(`http://localhost:5000/rfq/${rfqId}`);
       const updatedData = await updated.json();
       setData(updatedData);
   
-      // reset form
       setForm({
         supplierName: "",
         freightCharge: "",
@@ -87,7 +85,6 @@ export default function RFQDetails() {
 return (
     <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-blue-50 p-6 space-y-6">
   
-      {/* RFQ Header */}
       <div className="bg-white p-6 rounded-xl shadow-md border-t-4 border-indigo-500">
       <div className="flex justify-between items-start">
 
@@ -151,10 +148,8 @@ return (
       </div>
 
   
-      {/* Layout split */}
       <div className="grid md:grid-cols-2 gap-6">
   
-        {/* Bids */}
         <div className="bg-white p-5 rounded-xl shadow-md border-t-4 border-green-500">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">
             Bids Ranking
@@ -192,7 +187,6 @@ return (
           </table>
         </div>
   
-        {/* Logs */}
         <div className="bg-white p-5 rounded-xl shadow-md border-t-4 border-blue-500">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">
             Activity Log
@@ -227,7 +221,6 @@ return (
     
     <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-lg relative">
 
-      {/* Close button */}
       <button
         onClick={() => setShowModal(false)}
         className="absolute top-3 right-3 text-gray-500 hover:text-black"
@@ -245,7 +238,6 @@ return (
   className="space-y-4"
 >
 
-  {/* Supplier Name */}
   <div>
     <label className="text-sm text-gray-600">Supplier Name</label>
     <input
@@ -258,7 +250,6 @@ return (
     />
   </div>
 
-  {/* Charges */}
   <div className="grid grid-cols-2 gap-3">
     <div>
       <label className="text-sm text-gray-600">Freight Charges</label>
@@ -308,7 +299,6 @@ return (
     </div>
   </div>
 
-  {/* Validity */}
   <div>
     <label className="text-sm text-gray-600">Validity</label>
     <input
@@ -320,7 +310,6 @@ return (
     />
   </div>
 
-  {/* Button */}
   <button
     type="submit"
     className="w-full bg-linear-to-r from-indigo-500 to-blue-600 text-white py-2.5 rounded-lg font-medium hover:opacity-90 transition"

@@ -87,7 +87,6 @@ const [form, setForm] = useState({
   
       setShowModal(false);
   
-      // 🔥 refresh RFQs
       const updated = await fetch("http://localhost:5000/rfq");
       const updatedData = await updated.json();
       setRfqs(updatedData);
@@ -100,7 +99,6 @@ const [form, setForm] = useState({
 return (
     <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-blue-50 p-6">
   
-      {/* HEADER */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800 tracking-tight">
           RFQs
@@ -114,7 +112,6 @@ return (
         </button>
       </div>
   
-      {/* CARDS */}
       <div className="grid md:grid-cols-2 gap-6">
         {rfqs.map((rfq) => {
           const status = getStatus(rfq);
@@ -132,7 +129,6 @@ return (
               onClick={() => navigate(`/rfq/${rfq.id}`)}
               className="group bg-white/80 backdrop-blur border border-gray-200 rounded-xl p-5 cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all"
             >
-              {/* Header */}
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-lg font-semibold text-gray-800 group-hover:text-indigo-600 transition">
                   {rfq.name}
@@ -145,7 +141,6 @@ return (
                 </span>
               </div>
   
-              {/* Info */}
               <div className="space-y-3 text-sm text-gray-600">
   
                 <div className="flex justify-between">
@@ -185,7 +180,6 @@ return (
         })}
       </div>
   
-      {/* MODAL stays SAME */}
       {showModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-lg relative">
@@ -207,7 +201,6 @@ return (
   className="space-y-4"
 >
 
-  {/* RFQ Name */}
   <div>
     <label className="text-sm text-gray-600">RFQ Name</label>
     <input
@@ -220,7 +213,6 @@ return (
     />
   </div>
 
-  {/* Dates Row 1 */}
   <div className="grid grid-cols-2 gap-3">
 
     <div>
@@ -248,7 +240,6 @@ return (
 
   </div>
 
-  {/* Dates Row 2 */}
   <div className="grid grid-cols-2 gap-3">
 
     <div>
@@ -277,7 +268,6 @@ return (
 
   </div>
 
-  {/* Config */}
   <div className="grid grid-cols-2 gap-3">
 
     <div>
@@ -304,7 +294,6 @@ return (
 
   </div>
 
-  {/* Trigger Type */}
   <div>
     <label className="text-sm text-gray-600">Extension Trigger Type</label>
     <select
@@ -319,7 +308,6 @@ return (
     </select>
   </div>
 
-  {/* Submit */}
   <button
     type="submit"
     className="w-full bg-linear-to-r from-indigo-500 to-blue-600 text-white py-2.5 rounded-lg font-medium hover:opacity-90 transition shadow"

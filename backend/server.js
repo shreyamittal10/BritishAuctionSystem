@@ -14,7 +14,6 @@ app.use(express.json());
 
 const { Pool } = pkg;
 
-// 🔥 DB CONNECTION HERE
 export const pool = new Pool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -23,7 +22,6 @@ export const pool = new Pool({
     database: process.env.DB_NAME,
   });
 
-// 🔥 ROUTES DIRECTLY HERE
 app.post("/rfq/create", createRFQ);
 
 app.post("/rfq/:rfqId/bid", placeBid);
