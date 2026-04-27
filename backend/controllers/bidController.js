@@ -122,19 +122,22 @@ export const placeBid = async (req, res) => {
     const newBids = sortBids(newBidsRes.rows);
     const newL1 = newBids[0]?.name || null;
 
-    const oldRanking = oldBids.map(b => b.name);
-    const newRanking = newBids.map(b => b.name);
+    // 🔥 7. DETECT CHANGES
+const oldRanking = oldBids.map(b => b.name);
+const newRanking = newBids.map(b => b.name);
 
-    let rankChanged = false;
+let rankChanged = false;
 
-    if (oldRanking.length === newRanking.length) {
-      for (let i = 0; i < oldRanking.length; i++) {
-        if (oldRanking[i] !== newRanking[i]) {
-          rankChanged = true;
-          break;
-        }
-      }
+if (oldBids.length > 0) {
+  for (let i = 0; i < oldBids.length; i++) {
+    if (!newBids[i]) break;
+
+    if (oldBids[i].name !== newBids[i].name) {
+      rankChanged = true;
+      break;
     }
+  }
+}
 
     const l1Changed = oldL1 !== newL1;
 
